@@ -94,12 +94,13 @@ def handle_start(message):
                 threading.Timer(600, lambda: bot.delete_message(user_id, sent.message_id)).start()  # auto-delete after 10 min
             except:
                 continue
-                @bot.message_handler(content_types=['document', 'video', 'photo', 'audio'])
+
+@bot.message_handler(content_types=['document', 'video', 'photo', 'audio'])
 def handle_media(message):
     if message.from_user.id in admin_ids:
         uploads = admin_uploads.get(message.from_user.id, [])
         if len(uploads) >= 25:
-            bot.send_message(message.chat.id, "⚠️ You already uploaded 25 files. Send /done to get the link.")
+            bot.send_message(message.chat.id, "⚠ You already uploaded 25 files. Send /done to get the link.")
             return
         msg = bot.copy_message(chat_id='-1002425319175', from_chat_id=message.chat.id, message_id=message.message_id)
         uploads.append(msg.message_id)
